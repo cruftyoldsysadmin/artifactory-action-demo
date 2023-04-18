@@ -26,11 +26,9 @@ jobs:
         run: go mod tidy
       - name: Build
         if: success()
-        #run: go build -v ./... -o ./dist/artifactory-demo
         run: go build -o dist/artifactory-demo
       - name: Bump version and push tag
         if: success()
-        #uses: anothrNick/github-tag-action@1.36.0
         uses: anothrNick/github-tag-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +39,7 @@ jobs:
         id: tag_version
       - name: publish to artifactory
         if: success()
-        uses: nomadops/jfrog-cli-action@v0.0.20
+        uses: nomadops/artifactory-action@v0
         with:
           url: ${{ secrets.RT_URL }}
           credentials type: 'username'
@@ -49,7 +47,6 @@ jobs:
           #user: ${{ secrets.RT_USER }}
           user: cruftyold@gmail.com
           args: gp ${{ steps.tag_version.outputs.new_tag }} --server-id rt-server
-          #args: gp --server-id rt-server --deps=ALL --build-name=artifactory-demo --build-number=${{ steps.tag_version.outputs.new_tag }} ./dist/artifactory-demo
       - name: Create a GitHub release
         if: success()
         uses: ncipollo/release-action@v1
@@ -59,7 +56,7 @@ jobs:
           body: ${{ steps.tag_version.outputs.changelog }} 
       - name: search from artifactory
         if: success()
-        uses: nomadops/jfrog-cli-action@v0.0.20
+        uses: nomadops/artifactory-action@v0
         with:
           url: ${{ secrets.RT_URL }}
           credentials type: 'username'

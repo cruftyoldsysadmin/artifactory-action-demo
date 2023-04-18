@@ -8,7 +8,7 @@ Uses [artifactory-action](http://github.com/nomadops/artifactory-action) from [n
 * Setup a local artifactory instance at https://jfrog.com/
 * Install jfrog-cli https://jfrog.com/getcli/ 
   `curl -fL https://install-cli.jfrog.io | sh`
-* Configure jfrog-clikA
+* Configure jfrog-cli
 * Create a hello world go app
   * `go mod init github.com/cruftyoldsysadmin/artifactory-action-demo`
   * `go mod tidy`

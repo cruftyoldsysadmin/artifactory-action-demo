@@ -39,7 +39,7 @@ jobs:
         id: tag_version
       - name: publish to artifactory
         if: success()
-        uses: nomadops/artifactory-action@v0
+        uses: nomadops/artifactory-action@v0.0.3
         with:
           url: ${{ secrets.RT_URL }}
           credentials type: 'username'
@@ -56,7 +56,7 @@ jobs:
           body: ${{ steps.tag_version.outputs.changelog }} 
       - name: search from artifactory
         if: success()
-        uses: nomadops/artifactory-action@v0
+        uses: nomadops/artifactory-action@v0.0.3
         with:
           url: ${{ secrets.RT_URL }}
           credentials type: 'username'
